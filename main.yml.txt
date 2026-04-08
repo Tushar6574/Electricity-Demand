@@ -1,0 +1,36 @@
+name: Streamlit CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main ]  # Runs every time you push to the 'main' branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    # Optional: Add a step to run basic tests
+    - name: Run Quality Check (Linting)
+        run: |
+        pip install flake8
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+
+    # This step builds your Docker image
+    - name: Build Docker Image
+        run: docker build -t electricity-demand-app .
+
+    # Note: To actually push to a cloud (like AWS/Azure), 
+    # you would add the provider-specific deployment step here.

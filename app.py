@@ -20,7 +20,7 @@ model = load_model()
 
 # --- 2. WEATHER API LOGIC ---
 # Replace with your actual key or set as a GitHub Secret/Environment Variable
-OPENWEATHER_API_KEY = os.getenv('WEATHER_API_KEY')
+OPENWEATHER_API_KEY =st.secrets.get("OPENWEATHER_API_KEY") or os.getenv("OPENWEATHER_API_KEY")
 
 
 def get_live_weather(city):

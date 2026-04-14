@@ -4,7 +4,8 @@ import joblib
 import datetime
 import requests
 import os
-
+from dotenv import load_dotenv
+load_dotenv()
 # --- 1. CONFIGURATION & MODEL LOADING ---
 st.set_page_config(page_title="Electricity Demand Forecaster", layout="wide")
 MODEL_PATH = 'electricity_xgb_prediction_model.pkl'
